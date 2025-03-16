@@ -1,0 +1,20 @@
+{
+  "name": "express-backend",
+  "version": "0.0.1",
+  "author": "kfoq7",
+  "type": "module",
+  "main": "index.js",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.2"
+  }
+}
