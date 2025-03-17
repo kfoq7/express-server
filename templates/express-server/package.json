@@ -1,6 +1,7 @@
 {
   "name": "express-server",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
