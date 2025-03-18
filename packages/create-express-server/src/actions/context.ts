@@ -2,6 +2,7 @@ import arg from 'arg'
 
 export interface Context {
   help: boolean
+  cwd: string
   packageManager: string
   projectName: string
   template?: string
@@ -25,6 +26,7 @@ export async function getContext(argv: string[]) {
   const context: Context = {
     help,
     packageManager,
+    cwd,
     projectName,
     template,
     exit(code) {
