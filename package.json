@@ -3,18 +3,22 @@
   "version": "0.0.1",
   "author": "kfoq7",
   "type": "module",
-  "main": "index.js",
   "private": true,
   "license": "MIT",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "turbo run build --filter=create-express-server"
   },
   "workspaces": [
     "packages/*"
   ],
+  "engines": {
+    "node": "^18.17.1 || ^20.3.0 || >=22.0.0"
+  },
+  "packageManager": "pnpm@10.5.1",
   "devDependencies": {
     "@types/node": "^22.13.10",
     "prettier": "^3.5.3",
+    "turbo": "^2.4.4",
     "typescript": "^5.8.2"
   }
 }
