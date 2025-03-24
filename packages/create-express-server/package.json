@@ -1,23 +1,25 @@
 {
   "name": "create-express-server",
   "version": "1.0.0",
-  "description": "",
   "type": "module",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "author": "kfoq7",
+  "license": "MIT",
+  "exports": {
+    ".": "./create-express-server.mjs"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "files": [
     "dist",
     "create-express-server"
   ],
+  "main": "./create-express-server.mjs",
   "bin": {
     "create-express-server": "create-express-server.mjs"
   },
+  "scripts": {
+    "build": "tsc"
+  },
   "dependencies": {
+    "@astrojs/cli-kit": "^0.4.1",
     "@bluwy/giget-core": "^0.1.2"
   },
   "devDependencies": {

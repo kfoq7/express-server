@@ -1,33 +1,36 @@
 import type { Context } from './context.js'
 
 import fs from 'node:fs'
-// import path from 'node:path'
 import { downloadTemplate } from '@bluwy/giget-core'
 
-export async function template(ctx: Pick<Context, 'template'>) {}
+export async function template(ctx: Pick<Context, 'template'>) {
+  if (!ctx.template) ctx.template = 'express-server-ts'
+
+  await copyTemplate(ctx.template!, ctx as Context)
+}
 
 export function getTemplateTarget(tmpl: string) {
-  return `github:kfoq7/express-server#templates/${tmpl}`
+  return `github:kfoq7/express-server/templates/${tmpl}`
 }
 
 export default async function copyTemplate(tmpl: string, ctx: Context) {
   const templateTarget = getTemplateTarget(tmpl)
 
   try {
-    await downloadTemplate(templateTarget, {
+    const result = await downloadTemplate(templateTarget, {
       force: true,
       cwd: ctx.cwd,
       dir: '.',
     })
+    console.log(result)
   } catch (error: any) {
-    // Only remove the directory if it's most likely created by us.
-    if (ctx.cwd !== '.' && ctx.cwd !== './' && !ctx.cwd.startsWith('../')) {
-      try {
-        fs.rmdirSync(ctx.cwd)
-      } catch (_) {
-        // Ignore any errors from removing the directory,
-        // make sure we throw and display the original error.
-      }
+    console.log(error)
+    try {
+      fs.rmdirSync(ctx.cwd)
+    } catch (_) {
+      // Ignore any errors from removing the directory,
+      // make sure we throw and display the original error.
+      //
     }
 
     if (error.message?.includes('404')) {
