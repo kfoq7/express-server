@@ -1,6 +1,7 @@
 import type { Context } from './context.js'
 
 import fs from 'node:fs'
+import path from 'node:path'
 import { downloadTemplate } from '@bluwy/giget-core'
 
 export async function template(ctx: Pick<Context, 'template'>) {
@@ -11,6 +12,22 @@ export async function template(ctx: Pick<Context, 'template'>) {
 
 export function getTemplateTarget(tmpl: string) {
   return `github:kfoq7/express-server/templates/${tmpl}`
+}
+
+const FILES_TO_UPDATE = {
+  'package.json': (file: string, overrides: { name: string }) =>
+    fs.promises.readFile(file, 'utf-8').then(value => {
+      const indent = /(^\s+)/m.exec(value)?.[1] ?? '\t'
+      return fs.promises.writeFile(
+        file,
+        JSON.stringify(
+          Object.assign(JSON.parse(value), Object.assign(overrides, { private: undefined })),
+          null,
+          indent,
+        ),
+        'utf-8',
+      )
+    }),
 }
 
 export default async function copyTemplate(tmpl: string, ctx: Context) {
@@ -24,7 +41,6 @@ export default async function copyTemplate(tmpl: string, ctx: Context) {
     })
     console.log(result)
   } catch (error: any) {
-    console.log(error)
     try {
       fs.rmdirSync(ctx.cwd)
     } catch (_) {
@@ -43,4 +59,13 @@ export default async function copyTemplate(tmpl: string, ctx: Context) {
 
     throw new Error('Unable to download template')
   }
+
+  const updateFiles = Object.entries(FILES_TO_UPDATE).map(async ([file, update]) => {
+    const fileLoc = path.resolve(path.join(ctx.cwd, file))
+    if (fs.existsSync(fileLoc)) {
+      return update(fileLoc, { name: ctx.projectName! })
+    }
+  })
+
+  await Promise.all([...updateFiles])
 }
