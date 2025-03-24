@@ -3,6 +3,7 @@ import 'dotenv/config'
 import express from 'express'
 import morgan from 'morgan'
 import cors from 'cors'
+import { router } from './routes'
 
 const PORT = process.env.PORT ?? 9000
 
@@ -11,6 +12,8 @@ const app = express()
 app.use(express.json())
 app.use(morgan('dev'))
 app.use(cors())
+
+app.use('/api', router)
 
 app.get('/', (_req, res) => {
   res.send('<h1>Hello Express Server TS</h1>')
