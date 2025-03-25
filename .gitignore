@@ -3,6 +3,7 @@ dist/
 *.log
 package-lock.json
 .pnpm-store
+.turbo/
 
 *.env
 
