@@ -24,5 +24,9 @@
   },
   "devDependencies": {
     "arg": "^5.0.2"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }
