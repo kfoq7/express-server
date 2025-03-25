@@ -1,6 +1,5 @@
 {
-  "name": "express-server",
-  "version": "0.0.1",
+  "name": "@kfoq7/express-server",
   "author": "kfoq7",
   "type": "module",
   "private": true,
